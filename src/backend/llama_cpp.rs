@@ -13,7 +13,7 @@
 mod inner {
     use crate::backend::{BackendError, ModelConfig};
 
-    use llama_cpp_2::context::params::LlamaContextParams;
+    use llama_cpp_2::context::params::{KvCacheType, LlamaContextParams};
     use llama_cpp_2::context::LlamaContext;
     use llama_cpp_2::llama_backend::LlamaBackend;
     use llama_cpp_2::llama_batch::LlamaBatch;
@@ -75,7 +75,9 @@ mod inner {
             let ctx_params = LlamaContextParams::default()
                 .with_n_ctx(std::num::NonZeroU32::new(ctx_size))
                 .with_n_batch(512)
-                .with_n_seq_max(n_seq_max);
+                .with_n_seq_max(n_seq_max)
+                .with_type_k(KvCacheType::Q8_0)
+                .with_type_v(KvCacheType::Q8_0);
 
             // SAFETY: model is in a Box (heap-allocated, stable address).
             // We transmute the lifetime to 'static because the Box<LlamaModel>
