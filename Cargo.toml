@@ -37,3 +37,7 @@ path = "examples/spike_multi_generate.rs"
 [[example]]
 name = "spike_engine"
 path = "examples/spike_engine.rs"
+
+[[example]]
+name = "spike_continuous_batch"
+path = "examples/spike_continuous_batch.rs"
