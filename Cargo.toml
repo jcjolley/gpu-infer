@@ -1,0 +1,39 @@
+[package]
+name = "gpu-infer"
+version = "0.1.0"
+edition = "2021"
+description = "Shared GPU inference runtime with paged attention and VRAM pooling"
+
+[features]
+default = ["llama-cpp"]
+llama-cpp = ["dep:llama-cpp-2"]
+flashinfer = []  # Our custom FlashInfer attention path
+
+[dependencies]
+cudarc = { version = "0.18", features = ["cuda-version-from-build-system"] }
+half = "2.6"
+thiserror = "2"
+llama-cpp-2 = { version = "0.1", features = ["cuda"], optional = true }
+
+[build-dependencies]
+cc = "1.2"
+
+[[example]]
+name = "spike_single_decode"
+path = "examples/spike_single_decode.rs"
+
+[[example]]
+name = "spike_batch_decode"
+path = "examples/spike_batch_decode.rs"
+
+[[example]]
+name = "spike_generate"
+path = "examples/spike_generate.rs"
+
+[[example]]
+name = "spike_multi_generate"
+path = "examples/spike_multi_generate.rs"
+
+[[example]]
+name = "spike_engine"
+path = "examples/spike_engine.rs"
